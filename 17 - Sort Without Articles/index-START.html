@@ -47,6 +47,56 @@
 
 <script>
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+const list = document.querySelector('#bands')
+
+var mapped = bands.map(function(item, i) {  
+  if (item.startsWith('The '))
+    return { index: i, value:item.substr(4)};
+
+  else if (item.startsWith('A ')){
+    return {index: i, value:item.substr(2)};
+  }
+  else if (item.startsWith('An ')){
+    return {index: i, value: item.substr(3)};
+  }
+  else {
+    return {index: i, value:item};
+}
+})
+
+
+mapped.sort(function(a, b) { 
+  if (a.value > b.value) { 
+  return 1;
+   }
+   if (a.value < b.value) { 
+  return -1; 
+  } 
+  return 0; 
+  });
+  console.log(mapped)
+var result = mapped.map(function(el){ return bands[el.index]; });
+console.log(result)
+/* function strip(bandName){
+  return bandName.replace(/^(a |th |an )/i, '').trim();
+}
+
+const sortedBands = bands.sort(function (a, b){
+  if(strip(a)>strip(b)){
+    return 1;
+  }else{
+    return -1;
+  }
+});
+or
+const sortedBands = bands.sort((a, b)=> strip(a)>strip(b) ? 1: -1;);
+// if your function only return something you can do the arrow fucntion without the "return" word
+*/
+
+list.innerHTML = 
+  result
+    .map(item =>`<li>${item}</li>`)
+    .join('')
 
 
 </script>
